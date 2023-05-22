@@ -43,7 +43,9 @@ const Navbar = () => {
           </Link>
         </HStack>
         <HStack spacing={8} alignItems="center">
-          <Icon as={BiCart} w={6} h={6} />
+          <Link to="/cart">
+            <Icon as={BiCart} w={6} h={6} />
+          </Link>
           <Icon as={BiUser} w={6} h={6} />
         </HStack>
       </HStack>
