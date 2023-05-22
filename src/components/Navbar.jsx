@@ -1,34 +1,54 @@
-import { Box, HStack, Icon, Image, Stack, Text } from "@chakra-ui/react";
+import { HStack, Icon, Image, Text } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
 import { BiCart, BiUser } from "react-icons/bi";
-import { colors } from "../utils/colors";
+import { Link, Outlet, useMatch } from "react-router-dom";
+
+const isActiveLink = (path) => {
+  const match = useMatch(path);
+  return !!match;
+};
+
 const Navbar = () => {
   return (
-    <HStack mt="8" alignItems="center" justifyContent="space-around">
-      <HStack alignItems="center" spacing="4">
-        <Image src={logo} alt="logo" boxSize="50px" />
-        <Text fontSize="2xl">HarvestMart</Text>
+    <>
+      <HStack mt="8" mb="8" alignItems="center" justifyContent="space-around">
+        <Link to="/" className={isActiveLink("/") ? "active-link" : ""}>
+          <HStack alignItems="center" spacing="4">
+            <Image src={logo} alt="logo" boxSize="50px" />
+            <Text fontSize="2xl">HarvestMart</Text>
+          </HStack>
+        </Link>
+        <HStack spacing={8}>
+          <Link to="/" className={isActiveLink("/") ? "active-link" : ""}>
+            <Text>Home</Text>
+          </Link>
+          <Link
+            to="/products"
+            className={isActiveLink("/products") ? "active-link" : ""}
+          >
+            <Text>Products</Text>
+          </Link>
+
+          <Link
+            to="/login"
+            className={isActiveLink("/login") ? "active-link" : ""}
+          >
+            <Text>Login</Text>
+          </Link>
+          <Link
+            to="/signup"
+            className={isActiveLink("/signup") ? "active-link" : ""}
+          >
+            <Text>Signup</Text>
+          </Link>
+        </HStack>
+        <HStack spacing={8} alignItems="center">
+          <Icon as={BiCart} w={6} h={6} />
+          <Icon as={BiUser} w={6} h={6} />
+        </HStack>
       </HStack>
-      <HStack spacing={8}>
-        <Text>Home</Text>
-        <Text>Products</Text>
-        <Text>Login</Text>
-        <Text>Sign up</Text>
-      </HStack>
-      <HStack spacing={8} alignItems="center">
-        <Box
-          bg={colors.orange}
-          w="12px"
-          h="12px"
-          borderRadius="100%"
-          mt="-3"
-          mr="-10"
-        ></Box>
-        <Icon as={BiCart} w={6} h={6} />
-        <Box bg={colors.green} w="10px" h="10px" borderRadius="100%"></Box>
-        <Icon as={BiUser} w={6} h={6} />
-      </HStack>
-    </HStack>
+      <Outlet />
+    </>
   );
 };
 export default Navbar;
