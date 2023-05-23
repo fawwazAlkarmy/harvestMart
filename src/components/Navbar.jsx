@@ -1,26 +1,13 @@
 import { HStack, Icon, Image, Text } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
 import { BiCart, BiUser } from "react-icons/bi";
-import { Link, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar = ({ displayName, setDisplayName }) => {
-  const { logout, error } = useAuth();
+const Navbar = ({ displayName, handleLogout }) => {
+  const location = useLocation();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setDisplayName("");
-    } catch (err) {
-      console.log(err);
-    }
-    if (error) console.log(error);
-
-    window.location.reload();
-  };
-
-  const isActiveLink = (matchPath) => {
-    return window.location.pathname === matchPath;
+  const isActiveLink = (path) => {
+    return location.pathname === path;
   };
 
   return (
@@ -75,7 +62,6 @@ const Navbar = ({ displayName, setDisplayName }) => {
           )}
         </HStack>
       </HStack>
-      <Outlet />
     </>
   );
 };

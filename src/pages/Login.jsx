@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Button, HStack, Img, Input, Stack, Text } from "@chakra-ui/react";
-import logo from "../assets/logo.png";
-import loginImg from "../assets/login-img.png";
-import { colors } from "../utils/colors";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { colors } from "../utils/colors";
+import logo from "../assets/logo.png";
+import loginImg from "../assets/login-img.png";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 
-const Login = ({ setDisplayName, displayName }) => {
+const Login = ({ setDisplayName }) => {
+  const [name, setName] = useState("");
   const navigate = useNavigate();
   const { error, login } = useAuth();
 
@@ -18,6 +19,7 @@ const Login = ({ setDisplayName, displayName }) => {
     const password = e.target.password.value;
     await login(email, password);
     if (!error) {
+      setDisplayName(name);
       navigate("/");
     }
   };
@@ -37,8 +39,8 @@ const Login = ({ setDisplayName, displayName }) => {
             placeholder="Name"
             size="md"
             mb={4}
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <Input
             name="email"

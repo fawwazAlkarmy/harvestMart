@@ -8,17 +8,21 @@ import loginImg from "../assets/login-img.png";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 
-const Signup = ({ displayName, setDisplayName }) => {
-  const { error, signup } = useAuth();
+const Signup = ({ handleSignup }) => {
+  const [displayName, setDisplayName] = useState("");
+  const { error } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignup = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    await signup(email, password);
-    if (!error) {
+
+    try {
+      await handleSignup(email, password);
       navigate("/");
+    } catch (error) {
+      console.error("Signup error:", error);
     }
   };
 
@@ -30,9 +34,9 @@ const Signup = ({ displayName, setDisplayName }) => {
           Create an Account
         </Text>
         <Text fontSize="xs">Please Enter your Details</Text>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSubmit}>
           <Input
-            name="name"
+            name="displayName"
             type="text"
             placeholder="Name"
             size="md"
