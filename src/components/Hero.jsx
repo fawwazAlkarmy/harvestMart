@@ -20,6 +20,7 @@ const Hero = () => {
             bg={colors.primary}
             color="white"
             _hover={{ color: colors.primary, bg: "white" }}
+            fontWeight="thin"
           >
             Get Fresh & Healthy
           </Button>

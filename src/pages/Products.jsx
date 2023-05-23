@@ -22,6 +22,7 @@ const products = [
     img: d1,
     price: "$45.00",
     category: "dairy",
+    quantity: 0,
   },
 
   {
@@ -30,6 +31,7 @@ const products = [
     img: d2,
     price: "$33.00",
     category: "dairy",
+    quantity: 0,
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const products = [
     img: d3,
     price: "$27.00",
     category: "dairy",
+    quantity: 0,
   },
   {
     id: 4,
@@ -44,6 +47,7 @@ const products = [
     img: d4,
     price: "$22.00",
     category: "dairy",
+    quantity: 0,
   },
   {
     id: 5,
@@ -51,6 +55,7 @@ const products = [
     img: d5,
     price: "$40.00",
     category: "dairy",
+    quantity: 0,
   },
   {
     id: 6,
@@ -58,6 +63,7 @@ const products = [
     img: d6,
     price: "$28.00",
     category: "dairy",
+    quantity: 0,
   },
 
   {
@@ -66,6 +72,7 @@ const products = [
     img: o1,
     price: "$28.00",
     category: "organic",
+    quantity: 0,
   },
   {
     id: 8,
@@ -73,6 +80,7 @@ const products = [
     img: o2,
     price: "$40.00",
     category: "organic",
+    quantity: 0,
   },
   {
     id: 9,
@@ -80,6 +88,7 @@ const products = [
     img: o3,
     price: "$22.00",
     category: "organic",
+    quantity: 0,
   },
   {
     id: 10,
@@ -87,6 +96,7 @@ const products = [
     img: o4,
     price: "$45.00",
     category: "organic",
+    quantity: 0,
   },
   {
     id: 11,
@@ -94,6 +104,7 @@ const products = [
     img: o5,
     price: "$27.00",
     category: "organic",
+    quantity: 0,
   },
   {
     id: 12,
@@ -101,10 +112,11 @@ const products = [
     img: o6,
     price: "$33.00",
     category: "organic",
+    quantity: 0,
   },
 ];
 
-const Products = () => {
+const Products = ({ setCartProducts }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const filteredProducts =
@@ -149,7 +161,11 @@ const Products = () => {
         </Stack>
         <SimpleGrid columns={3} spacing={12} alignItems="center">
           {filteredProducts.map((product) => (
-            <ProductCard product={product} key={product.id} />
+            <ProductCard
+              product={product}
+              key={product.id}
+              setCartProducts={setCartProducts}
+            />
           ))}
         </SimpleGrid>
       </Stack>
