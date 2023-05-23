@@ -5,7 +5,8 @@ import { colors } from "../utils/colors";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const Login = () => {
+
+const Login = ({ displayName, setDisplayName }) => {
   return (
     <HStack spacing={10} mt={20} mb={20} justifyContent="space-around">
       <Stack spacing={5} alignItems="center">

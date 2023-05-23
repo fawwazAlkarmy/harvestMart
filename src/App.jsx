@@ -9,18 +9,28 @@ import Cart from "./pages/Cart";
 
 function App() {
   const [cartProducts, setCartProducts] = useState([]);
-
+  const [displayName, setDisplayName] = useState("");
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar displayName={displayName} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/products"
           element={<Products setCartProducts={setCartProducts} />}
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/login"
+          element={
+            <Login displayName={displayName} setDisplayName={setDisplayName} />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Signup displayName={displayName} setDisplayName={setDisplayName} />
+          }
+        />
         <Route
           path="/cart"
           element={

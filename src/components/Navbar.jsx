@@ -8,7 +8,7 @@ const isActiveLink = (path) => {
   return !!match;
 };
 
-const Navbar = () => {
+const Navbar = ({ displayName }) => {
   return (
     <>
       <HStack mt="8" mb="8" alignItems="center" justifyContent="space-around">
@@ -46,7 +46,11 @@ const Navbar = () => {
           <Link to="/cart">
             <Icon as={BiCart} w={6} h={6} />
           </Link>
-          <Icon as={BiUser} w={6} h={6} />
+          {displayName ? (
+            <Text>Hi {displayName} !</Text>
+          ) : (
+            <Icon as={BiUser} w={6} h={6} />
+          )}
         </HStack>
       </HStack>
       <Outlet />
