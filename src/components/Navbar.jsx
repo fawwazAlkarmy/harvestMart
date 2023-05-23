@@ -1,14 +1,28 @@
 import { HStack, Icon, Image, Text } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
 import { BiCart, BiUser } from "react-icons/bi";
-import { Link, Outlet, useMatch } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
-const isActiveLink = (path) => {
-  const match = useMatch(path);
-  return !!match;
-};
+const Navbar = ({ displayName, setDisplayName }) => {
+  const { logout, error } = useAuth();
 
-const Navbar = ({ displayName }) => {
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setDisplayName("");
+    } catch (err) {
+      console.log(err);
+    }
+    if (error) console.log(error);
+
+    window.location.reload();
+  };
+
+  const isActiveLink = (matchPath) => {
+    return window.location.pathname === matchPath;
+  };
+
   return (
     <>
       <HStack mt="8" mb="8" alignItems="center" justifyContent="space-around">
@@ -28,26 +42,34 @@ const Navbar = ({ displayName }) => {
           >
             <Text>Products</Text>
           </Link>
-
-          <Link
-            to="/login"
-            className={isActiveLink("/login") ? "active-link" : ""}
-          >
-            <Text>Login</Text>
-          </Link>
-          <Link
-            to="/signup"
-            className={isActiveLink("/signup") ? "active-link" : ""}
-          >
-            <Text>Signup</Text>
-          </Link>
+          {!displayName && (
+            <>
+              <Link
+                to="/login"
+                className={isActiveLink("/login") ? "active-link" : ""}
+              >
+                <Text>Login</Text>
+              </Link>
+              <Link
+                to="/signup"
+                className={isActiveLink("/signup") ? "active-link" : ""}
+              >
+                <Text>Signup</Text>
+              </Link>
+            </>
+          )}
         </HStack>
         <HStack spacing={8} alignItems="center">
           <Link to="/cart">
             <Icon as={BiCart} w={6} h={6} />
           </Link>
           {displayName ? (
-            <Text>Hi {displayName} !</Text>
+            <>
+              <Text>Hi {displayName}!</Text>
+              <Link to="/" onClick={handleLogout}>
+                <Text>Logout</Text>
+              </Link>
+            </>
           ) : (
             <Icon as={BiUser} w={6} h={6} />
           )}
@@ -57,4 +79,5 @@ const Navbar = ({ displayName }) => {
     </>
   );
 };
+
 export default Navbar;

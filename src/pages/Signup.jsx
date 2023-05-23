@@ -18,7 +18,6 @@ const Signup = ({ displayName, setDisplayName }) => {
     const password = e.target.password.value;
     await signup(email, password);
     if (!error) {
-      // Signup successful
       navigate("/");
     }
   };
